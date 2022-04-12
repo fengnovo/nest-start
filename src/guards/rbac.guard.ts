@@ -23,6 +23,7 @@ export class RbacGuard implements CanActivate {
     // 获取 redis 里缓存的 token
     const redis = await RedisInstance.initRedis('TokenGuard.canActivate', 0);
     const key = `${user.userId}-${user.username}`;
+    debugger
     const cache = await redis.get(key);
 
     if (token !== cache) {

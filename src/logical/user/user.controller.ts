@@ -4,7 +4,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { ValidationPipe } from 'src/pipe/validation.pipe';
 import { AuthService } from '../auth/auth.service';
-import { LoginDTO, RegisterInfoDTO } from './user.dto';
+import { LoginDTO, RegisterInfoDTO, SearchUserDTO } from './user.dto';
 import { UserService } from './user.service';
 
 @ApiBearerAuth() // Swagger 的 JWT 验证
@@ -51,9 +51,13 @@ export class UserController {
     return await this.usersService.register(body);
   }
 
+  @ApiBody({
+    description: '用户查询',
+    type: SearchUserDTO,
+  })
   @UseGuards(AuthGuard('jwt')) // 使用 'JWT' 进行验证
   @Post('find-one')
-  async findOne(@Body() body: any) {
+  async findOne(@Body() body: SearchUserDTO) {
     return await this.usersService.findOne(body.username);
   }
 }

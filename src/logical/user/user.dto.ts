@@ -26,6 +26,12 @@ export class LoginDTO {
   readonly password: string;
 }
 
+export class SearchUserDTO {
+  @ApiProperty({ description: '用户名', example: 'koa2' })
+  @IsNotEmpty({ message: '用户名不能为空' })
+  readonly username: string;
+}
+
 export class RegisterInfoDTO {
   @ApiProperty()
   @IsNotEmpty({ message: '用户名不能为空' })
